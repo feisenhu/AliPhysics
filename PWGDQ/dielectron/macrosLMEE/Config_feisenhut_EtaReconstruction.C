@@ -2,7 +2,8 @@
 // ################################################################
 // ################# PreFilter Track Cut Primary ##################
 // ################################################################
-TString names_Prim_Track_PreFilter_Cuts=("JPID_sum_pt75_PreFilter;JPID_sum1_pt75_sec_kV0_PreFilter");
+// TString names_Prim_Track_PreFilter_Cuts=("JPID_sum_pt75_PreFilter;JPID_sum1_pt75_sec_kV0_PreFilter");    // standard
+TString names_Prim_Track_PreFilter_Cuts=("JPID_sum_pt75;JPID_sum1_pt75_sec_kV0");                           // use if case: without Prefilter
 
 // ################################################################
 // ################# PreFilter Track Cut Secondary ################
@@ -38,8 +39,8 @@ TString names_Sec_Track_standard_Cuts=("noPID_V0_standard;track_V0_standard");
 // ################# PreFilter Pair Cut Secondary #################
 // ################################################################
 // TString names_Sec_Pair_PreFilter_Cuts=("noPID;kV0");
-TString names_Sec_Pair_PreFilter_Cuts=("noPID;pairkV0_PreFilter");
-// TString names_Sec_Pair_PreFilter_Cuts=("noPID;pairkV0");
+// TString names_Sec_Pair_PreFilter_Cuts=("noPID;pairkV0_PreFilter");           // standard
+TString names_Sec_Pair_PreFilter_Cuts=("noPID;pairkV0");                        // use if case: without Prefilter
 
 // ################################################################
 // ################# Standard Pair Cut Primary ####################
@@ -95,8 +96,8 @@ bool analyseGammaGamma = true;
 
 bool DoPairing         = true;
 bool DoFourPairing     = true;
-bool UsePreFilter      = true;
-bool UseSecPreFilter   = true;
+bool UsePreFilter      = false;
+bool UseSecPreFilter   = false;
 bool DoMassCut         = true;
 bool V0OnFlyStatus     = true; // true stands for OnFlyStatus:aktive ; false means deaktivated
 // bool DoULSLS   = true;
@@ -144,6 +145,7 @@ const double maxGenEta =  1.5;
 // const double maxEtaCut =  100;
 // const double minPtCut = 0.200;
 const double minPtCutPrim = 0.075;
+// const double minPtCutPrim = 0.200;
 const double maxPtCutPrim = 8.0;
 const double minPtCutSec = 0.02;
 const double maxPtCutSec = 8.0;
@@ -476,7 +478,8 @@ AliAnalysisFilter* SetupTrackCutsAndSettings(TString cutDefinition, Bool_t isAOD
   /////////////////////////////////////////////////////////
   else if (cutDefinition == "pairJPID_sum_pt75" || cutDefinition == "pairJPID_sum1_pt75_sec_kV0"){
     // AnaCut.SetPIDAna(LMEECutLib::kNoPID_Pt20);
-    AnaCut.SetPIDAna(LMEECutLib::kNoPID_Pt75);
+    // AnaCut.SetPIDAna(LMEECutLib::kNoPID_Pt75);
+    AnaCut.SetPIDAna(LMEECutLib::kNoKinPIDCuts);
     AnaCut.SetTrackSelectionAna(LMEECutLib::kDefaultNoTrackCuts);
     AnaCut.SetPairCutsAna(LMEECutLib::kNoPairCutsAna);
     AnaCut.SetCentrality(centrality);
@@ -495,9 +498,9 @@ AliAnalysisFilter* SetupTrackCutsAndSettings(TString cutDefinition, Bool_t isAOD
   //             secondary pair cut settings             //
   /////////////////////////////////////////////////////////
   else if (cutDefinition == "pairkV0"){
-    AnaCut.SetPIDAna(LMEECutLib::kNoPID_Pt20);
+    // AnaCut.SetPIDAna(LMEECutLib::kNoPID_Pt20);
     // AnaCut.SetPIDAna(LMEECutLib::kNoPID_Pt75);
-    // AnaCut.SetPIDAna(LMEECutLib::kNoKinPIDCuts); // used for test
+    AnaCut.SetPIDAna(LMEECutLib::kNoKinPIDCuts); // used for test
     // AnaCut.SetPIDAna(LMEECutLib::kPID_Jeromian_01);
     // AnaCut.SetTrackSelectionAna(LMEECutLib::kTRACKcut_1_secondary);
     AnaCut.SetTrackSelectionAna(LMEECutLib::kDefaultNoTrackCuts);
