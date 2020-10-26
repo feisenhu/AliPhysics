@@ -2,8 +2,8 @@
 // ################################################################
 // ################# PreFilter Track Cut Primary ##################
 // ################################################################
-// TString names_Prim_Track_PreFilter_Cuts=("JPID_sum_pt75_PreFilter;JPID_sum1_pt75_sec_kV0_PreFilter");    // standard
-TString names_Prim_Track_PreFilter_Cuts=("JPID_sum_pt75;JPID_sum1_pt75_sec_kV0");                           // use if case: without Prefilter
+TString names_Prim_Track_PreFilter_Cuts=("JPID_sum_pt75_PreFilter;JPID_sum1_pt75_sec_kV0_PreFilter");    // standard     use if case: with    Prefilter
+// TString names_Prim_Track_PreFilter_Cuts=("JPID_sum_pt75;JPID_sum1_pt75_sec_kV0");                           //        use if case: without Prefilter
 
 // ################################################################
 // ################# PreFilter Track Cut Secondary ################
@@ -39,8 +39,8 @@ TString names_Sec_Track_standard_Cuts=("noPID_V0_standard;track_V0_standard");
 // ################# PreFilter Pair Cut Secondary #################
 // ################################################################
 // TString names_Sec_Pair_PreFilter_Cuts=("noPID;kV0");
-// TString names_Sec_Pair_PreFilter_Cuts=("noPID;pairkV0_PreFilter");           // standard
-TString names_Sec_Pair_PreFilter_Cuts=("noPID;pairkV0");                        // use if case: without Prefilter
+TString names_Sec_Pair_PreFilter_Cuts=("noPID;pairkV0_PreFilter");           // standard    use if case: with    Prefilter
+// TString names_Sec_Pair_PreFilter_Cuts=("noPID;pairkV0");                     //          use if case: without Prefilter
 
 // ################################################################
 // ################# Standard Pair Cut Primary ####################
@@ -96,8 +96,8 @@ bool analyseGammaGamma = true;
 
 bool DoPairing         = true;
 bool DoFourPairing     = true;
-bool UsePreFilter      = false;
-bool UseSecPreFilter   = false;
+bool UsePreFilter      = true;        // Note by selecting false: change selected PreFilter cuts to standard Cuts ; otherwise use the as standard marked prefilter cuts
+bool UseSecPreFilter   = true;        // Note by selecting false: change selected PreFilter cuts to standard Cuts ; otherwise use the as standard marked prefilter cuts
 bool DoMassCut         = true;
 bool V0OnFlyStatus     = true; // true stands for OnFlyStatus:aktive ; false means deaktivated
 // bool DoULSLS   = true;
@@ -156,10 +156,10 @@ const double maxEtaCut = 0.8;
 // const double upperMassCutPrimaries = 0.547862;
 // const double lowerMassCutPrimaries = 0.1349766;
 // const double upperMassCutPrimaries = 1.;
-// const double lowerMassCutPrimaries = 0.1;
-// const double upperMassCutPrimaries = 0.2;
-const double lowerMassCutPrimaries = 0.0;
-const double upperMassCutPrimaries = 0.35;
+const double lowerMassCutPrimaries = 0.1;
+const double upperMassCutPrimaries = 0.2;
+// const double lowerMassCutPrimaries = 0.0;
+// const double upperMassCutPrimaries = 0.35;
 // const double lowerPrimSecPreFilterMass = 0.1;
 // const double upperPrimSecPreFilterMass = 0.165;
 const double lowerPrimSecPreFilterMass = 0.06;
@@ -511,9 +511,9 @@ AliAnalysisFilter* SetupTrackCutsAndSettings(TString cutDefinition, Bool_t isAOD
   }
 
   else if (cutDefinition == "pairkV0_PreFilter"){
-    AnaCut.SetPIDAna(LMEECutLib::kNoPID_Pt20);
+    // AnaCut.SetPIDAna(LMEECutLib::kNoPID_Pt20);
     // AnaCut.SetPIDAna(LMEECutLib::kNoPID_Pt75);
-    // AnaCut.SetPIDAna(LMEECutLib::kNoKinPIDCuts);  // used for test
+    AnaCut.SetPIDAna(LMEECutLib::kNoKinPIDCuts);  // used for test
     // AnaCut.SetPIDAna(LMEECutLib::kPID_Jeromian_01);
     // AnaCut.SetTrackSelectionAna(LMEECutLib::kV0OnTheFly);
     // AnaCut.SetTrackSelectionAna(LMEECutLib::kTRACKcut_1_secondary);
